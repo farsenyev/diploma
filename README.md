@@ -73,7 +73,7 @@ Backend
 
 ```
 git clone <repo-url>
-cd project
+cd diploma
 ```
  ## 2. Backend
  ```
