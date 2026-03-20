@@ -1,62 +1,65 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useRef, useState} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-
 import { ResultDashboard } from '../components/dashboard/ResultDashboard';
 import { ResultTable } from '../components/table/ResultTable';
-
 import type { AnalysisReport, AnalyzeResponse } from '../types';
 import {Loader} from "../components/loader/Loader";
+import {saveAnalysisToHistory} from "../services/historyStore.ts";
+import "./style/ResultPage.css"
 
 export const ResultsPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const url = location.state?.url as string | undefined;
+    const url = location.state?.url as string;
 
     const [report, setReport] = useState<AnalysisReport | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const hasRequestedRef = useRef(false);
+
+    const fetchAnalysis = async () => {
+        try {
+            setLoading(true);
+            setError('');
+
+            const response = await fetch('http://localhost:3001/api/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ url }),
+            });
+
+            const data: AnalyzeResponse = await response.json();
+
+            if (!response.ok) {
+                throw new Error(`Ошибка запроса: ${response.status}`)
+            }
+
+            setReport(data.report);
+            await saveAnalysisToHistory(url, data)
+        } catch (err) {
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError('Произошла неизвестная ошибка');
+            }
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        console.log('location.state:', location.state);
-        console.log('url:', url);
-
         if (!url) {
             setError('URL не передан');
             setLoading(false);
             return;
         }
 
-        const fetchAnalysis = async () => {
-            try {
-                setLoading(true);
-                setError('');
+        if (hasRequestedRef.current) return;
 
-                const response = await fetch('http://localhost:3001/api/analyze', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ url }),
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Ошибка запроса: ${response.status}`);
-                }
-
-                const data: AnalyzeResponse = await response.json();
-
-                setReport(data.report);
-            } catch (err) {
-                if (err instanceof Error) {
-                    setError(err.message);
-                } else {
-                    setError('Произошла неизвестная ошибка');
-                }
-            } finally {
-                setLoading(false);
-            }
-        };
+        hasRequestedRef.current = true;
 
         fetchAnalysis();
     }, [url]);

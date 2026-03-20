@@ -134,3 +134,12 @@ export interface AnalyzeResponse {
     visualModel: VisualStructureModel;
     report: AnalysisReport;
 }
+
+export interface StoredAnalysis {
+    id: string;
+    url: string;
+    createdAt: string;
+    snapshot: PageSnapshot;
+    visualModel: VisualStructureModel;
+    report: AnalysisReport;
+}

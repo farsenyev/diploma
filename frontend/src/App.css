@@ -72,31 +72,16 @@ textarea {
   background: transparent;
 }
 
-.header,
-.results-page-header {
+.header {
   margin-bottom: 24px;
 }
 
-.header h1,
-.results-page-header h1 {
+.header h1 {
   margin: 0 0 8px;
   color: var(--text-primary);
   font-size: 52px;
   line-height: 1.05;
   letter-spacing: -0.02em;
-}
-
-.results-page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 16px;
-}
-
-.results-page-url {
-  margin: 0;
-  color: var(--text-muted);
-  word-break: break-all;
 }
 
 .input-group {
@@ -125,9 +110,7 @@ textarea {
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
 }
 
-.input-group button,
-.results-page-header button,
-.results-state button {
+.input-group button {
   padding: 14px 18px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-color);
@@ -137,36 +120,33 @@ textarea {
   transition: 0.2s ease;
 }
 
-.input-group button:hover,
-.results-page-header button:hover,
-.results-state button:hover {
+.input-group button:hover {
   background: var(--accent-blue-hover);
 }
 
-.input-group button:disabled,
-.results-page-header button:disabled,
-.results-state button:disabled {
+.input-group button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
 .error {
   color: #fca5a5;
-  margin-top: 10px;
 }
 
-.results-state {
-  min-height: 50vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+.history-button {
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
   color: var(--text-secondary);
-  padding: 48px 0;
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
-.results-state-error {
-  color: #fca5a5;
+.history-button:hover {
+  background: #253244;
+  color: var(--text-primary);
 }
 
 @media (max-width: 900px) {
@@ -174,20 +154,13 @@ textarea {
     padding: 28px 16px 40px;
   }
 
-  .header h1,
-  .results-page-header h1 {
+  .header h1 {
     font-size: 40px;
-  }
-
-  .results-page-header {
-    flex-direction: column;
-    align-items: stretch;
   }
 }
 
 @media (max-width: 640px) {
-  .header h1,
-  .results-page-header h1 {
+  .header h1 {
     font-size: 34px;
   }
 
@@ -199,4 +172,30 @@ textarea {
   .input-group button {
     width: 100%;
   }
+}
+
+button {
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+
+  background: var(--accent-blue);
+  color: #fff;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+button:hover {
+  background: var(--accent-blue-hover);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

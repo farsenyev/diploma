@@ -53,7 +53,7 @@ export const ResultTable = ({ results }: ResultTableProps) => {
     ) => (
         <button
             type="button"
-            className={`summary-chip ${extraClass} ${statusFilter === filter ? 'active' : ''}`.trim()}
+            className={`summary-chip  ${extraClass} ${statusFilter === filter ? 'active' : ''}`.trim()}
             onClick={() => setStatusFilter(filter)}
         >
             <span className="summary-chip-label">{label}</span>

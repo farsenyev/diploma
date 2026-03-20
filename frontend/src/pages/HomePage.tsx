@@ -22,6 +22,10 @@ export const HomePage = () => {
         <main className="page">
             <h1>Accessibility Checker</h1>
 
+            <button className="history-button" onClick={() => navigate('/history')}>
+                История проверок
+            </button>
+
             <form className="input-group" onSubmit={handleSubmit}>
                 <input
                     autoFocus
