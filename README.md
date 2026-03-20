@@ -141,8 +141,11 @@ cd diploma
 | pnpm | npm | yarn |
 |------|-----|------|
 | `pnpm run start` | `npm run start` | `yarn start` |
+
 Backend будет доступен по адресу
+
 ```http://localhost:3001```
+
  ## 3. Frontend
 ``` 
 cd frontend
@@ -161,5 +164,6 @@ cd frontend
 | `pnpm run dev` | `npm run dev` | `yarn dev` |
 
 Frontend будет доступен по адресу
+
 ```http://localhost:5173```
 
